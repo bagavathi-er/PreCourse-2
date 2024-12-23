@@ -8,31 +8,43 @@ class IterativeQuickSort {
        recursive*/
     int partition(int arr[], int l, int h) 
     { 
-        //Compare elements and swap.
+ 	int pivot = arr[l];
+        int i = l+1;
+        int j = l+1;
+        
+        while (j <= h) {
+            if (arr[j] < pivot) {
+                swap(arr, i, j);
+                i++;
+            }
+            j++;
+        }
+        swap(arr, l, i-1);
+        return i-1;    
     } 
   
     // Sorts arr[l..h] using iterative QuickSort 
     void QuickSort(int arr[], int l, int h) 
     { 
-        int[] stack = new int[high - low + 1];
+        int[] stack = new int[l - l + 1];
         int top = -1;
-        stack[++top] = low;
-        stack[++top] = high;
+        stack[++top] = l;
+        stack[++top] = h;
 
         while (top >= 0) {
-            high = stack[top--];
-            low = stack[top--];
+            h = stack[top--];
+            l = stack[top--];
 
-            int pivot = partition(arr, low, high);
+            int pivot = partition(arr, l, h);
 
-            if (pivot - 1 > low) {
-                stack[++top] = low;
+            if (pivot - 1 > l) {
+                stack[++top] = l;
                 stack[++top] = pivot - 1;
             }
 
-            if (pivot + 1 < high) {
+            if (pivot + 1 < h) {
                 stack[++top] = pivot + 1;
-                stack[++top] = high;
+                stack[++top] = h;
             }
     } 
   
