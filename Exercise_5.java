@@ -14,7 +14,26 @@ class IterativeQuickSort {
     // Sorts arr[l..h] using iterative QuickSort 
     void QuickSort(int arr[], int l, int h) 
     { 
-        //Try using Stack Data Structure to remove recursion.
+        int[] stack = new int[high - low + 1];
+        int top = -1;
+        stack[++top] = low;
+        stack[++top] = high;
+
+        while (top >= 0) {
+            high = stack[top--];
+            low = stack[top--];
+
+            int pivot = partition(arr, low, high);
+
+            if (pivot - 1 > low) {
+                stack[++top] = low;
+                stack[++top] = pivot - 1;
+            }
+
+            if (pivot + 1 < high) {
+                stack[++top] = pivot + 1;
+                stack[++top] = high;
+            }
     } 
   
     // A utility function to print contents of arr 
